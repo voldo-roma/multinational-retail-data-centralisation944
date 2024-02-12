@@ -1,3 +1,4 @@
+# Context 
 This demo is set to replicate the core of data engineering / cloud engineering work for a multinational company that sells various goods across the globe.
 
 ## Problem statement: 
