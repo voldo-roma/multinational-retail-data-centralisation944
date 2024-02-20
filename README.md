@@ -9,3 +9,10 @@ In an effort to become more data-driven, your organisation wants to make it's sa
 Your first goal will be to produce a system that stores the current company data in a database so that it's accessed from one centralised location and acts as a single source of truth for sales data.
 
 You will then query the database to get up-to-date metrics for the business.
+
+# Approach and Ways of Working
+
+In this project I'm using cloud Jira to capture requirements and to-dos transferred from the AiCore program to help with structure and implement Agile ways of working. 
+* The project is limited to a single contributor, however the board consists of the standard Kanban workflow: TO DO, IN PROGRESS, REVIEW, and DONE. 
+* Each milestone is turned into Epics while individual tasks are turned into blue Tasks or sub-tasks depending on the size of the ticket. 
+
