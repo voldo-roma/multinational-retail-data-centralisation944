@@ -15,4 +15,5 @@ You will then query the database to get up-to-date metrics for the business.
 In this project I'm using cloud Jira to capture requirements and to-dos transferred from the AiCore program to help with structure and implement Agile ways of working. 
 * The project is limited to a single contributor, however the board consists of the standard Kanban workflow: TO DO, IN PROGRESS, REVIEW, and DONE. 
 * Each milestone is turned into Epics while individual tasks are turned into blue Tasks or sub-tasks depending on the size of the ticket. 
+![alt text](https://github.com/voldo-roma/multinational-retail-data-centralisation944/blob/MRDC944/aicore_jira_view_MRD.png?raw=true)
 
