@@ -4,17 +4,18 @@
 import tabula
 import pandas as pd
 
+
 class DataExtractor:
     #DataExtractor object creation
     def __init__(self, data):
         self.data = data
-    #extract data from APIs
+    #data from APIs
     def extract_data(self, api_url_here, params=None):
         pass
-    #extract data from csv
+    #data from csvs
     def extract_data(self, path_here):
         pass
-    #AWS
+    #data from AWS
     def extract_from_s3(self, bucket_name, file_name, aws_credentials):
         # Placeholder method for extracting data from an S3 bucket
         pass
@@ -22,13 +23,12 @@ class DataExtractor:
 #Create a method in your DataExtractor class called retrieve_pdf_data, which takes in a link as an argument and returns a pandas DataFrame.
 #Use the tabula-py Python package, imported with tabula to extract all pages from the pdf document at following link .
 #Then return a DataFrame of the extracted data.
-    def retrieve_pdf_data(self, link):
-        try:
-            # Extract data from PDF using tabula-py
-            df_list = tabula.read_pdf(link, pages='all', multiple_tables=True)
-            combined_df = pd.concat(df_list)
-            return combined_df
-        except Exception as e:
-            print("Error extracting data from PDF:", str(e))
-            return None
+    def retrieve_pdf_data(self, file_path = 'card_details.pdf'):
+        # Extract tables from all pages of the PDF
+        tables = tabula.read_pdf(file_path = 'card_details.pdf', pages='all', multiple_tables=True)
+        # Assuming there's only one table of interest across all pages
+        if tables:
+            return pd.concat(tables, ignore_index=True)
+        else:
+            return pd.DataFrame()
 
