@@ -28,10 +28,6 @@ class DatabaseConnector:
         except Exception as e:
             print(f"Error connecting to the database: {e}")
             return None
-        with engine.connect() as connection:
-            result = connection.execute(text("SELECT * FROM actor"))
-        for row in result:
-            print(row)
     def list_db_tables(self):
         engine = self.init_db_engine()  # Assuming you've corrected init_db_engine as suggested
         if engine is not None:
