@@ -10,20 +10,26 @@ Your first goal will be to produce a system that stores the current company data
 
 You will then query the database to get up-to-date metrics for the business.
 
-# Approach and Ways of Working
+# Ways of Working
 
 In this project I'm using cloud Jira to capture requirements and to-dos transferred from the AiCore program to help with structure and implement Agile ways of working. 
 * The project is limited to a single contributor, however the board consists of the standard Kanban workflow: TO DO, IN PROGRESS, REVIEW, and DONE. 
 * Each milestone is turned into Epics while individual tasks are turned into blue Tasks or sub-tasks depending on the size of the ticket. 
 ![alt text](https://github.com/voldo-roma/multinational-retail-data-centralisation944/blob/MRDC944/aicore_jira_view_MRD.png?raw=true)
 
-## How to navigate this repo:
-This repository comprises scripts that all work together to perform data tasks. Namely, extract, clean, and upload - all within the same data pipeline:
+=======
+# Solution
 
-* data_extraction.py: Defines DataExtractor for retrieving data from various sources, including APIs and RDS databases. It fetches raw data that might require cleaning or transformation before use.
+***Data sources***
+1. card_details.pdf
+2. __
+3. __
 
-* database_utils.py: Contains DatabaseConnector, which manages database connections, reads credentials, and interacts with the database for operations like listing tables and uploading data. It's pivotal for both initial data extraction and final data upload after cleaning.
-
-* data_cleaning.py: Hosts DataCleaning, responsible for cleaning or transforming data fetched by DataExtractor. It ensures data quality.
-
-* main.py: Orchestrates the workflow by using classes and methods from the other scripts. 
+***Scripts:*** 
+* data_extraction.py
+  - DataExtractor within it works as a utility class, it creats methods that help extract data from different data sources. The methods contained will be fit to extract data from CSV files, an API and an S3 bucket.
+* database_utils.py
+  - DatabaseConnector class within will be used to connect with and upload data to the database.
+* data_cleaning.py
+  - contains the class DataCleaning with methods to clean data from each of the data sources.
+* main.py - Orchestrates the workflow by using classes and methods from the other scripts. 
