@@ -2,11 +2,9 @@
 import pandas as pd
 class DataCleaning:
     # method for cleaning data extracted from CSV file
-    def clean_csv_data(self, data):
-        pass
-    
-    # clean_card_data method in the DataCleaning class (takes )
-    def clean_card_data(self, df):
+    def clean_user_data(self, df):
+            
+    # clean_user_data method in the DataCleaning class (takes )
         try:
             # Remove any rows with NULL values
             df_cleaned = df.dropna()
@@ -17,5 +15,8 @@ class DataCleaning:
         except Exception as e:
             print("Error cleaning data:", str(e))
             return None    
-    
-
+    # method for cleaning data extracted 
+    def called_clean_store_data(self, df):
+        # Implement cleaning operations, e.g., handle missing values, correct data types
+        cleaned_df = df.dropna()  # Example operation
+        return cleaned_df

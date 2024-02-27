@@ -1,34 +1,37 @@
-# 09/02/2024
-# create a utility class
-# methods inside it will need to be fit to extract data from a particular data source, including CSV files, APIs and an S3 bucket.
-import tabula
 import pandas as pd
-
-
+import requests
+from database_utils import DatabaseConnector
 class DataExtractor:
-    #DataExtractor object creation
-    def __init__(self, data):
+    def __init__(self, data=None):
         self.data = data
-    #data from APIs
-    def extract_data(self, api_url_here, params=None):
-        pass
-    #data from csvs
-    def extract_data(self, path_here):
-        pass
-    #data from AWS
-    def extract_from_s3(self, bucket_name, file_name, aws_credentials):
-        # Placeholder method for extracting data from an S3 bucket
-        pass
-#Step 2:
-#Create a method in your DataExtractor class called retrieve_pdf_data, which takes in a link as an argument and returns a pandas DataFrame.
-#Use the tabula-py Python package, imported with tabula to extract all pages from the pdf document at following link .
-#Then return a DataFrame of the extracted data.
-    def retrieve_pdf_data(self, file_path = 'card_details.pdf'):
-        # Extract tables from all pages of the PDF
-        tables = tabula.read_pdf(file_path = 'card_details.pdf', pages='all', multiple_tables=True)
-        # Assuming there's only one table of interest across all pages
-        if tables:
-            return pd.concat(tables, ignore_index=True)
-        else:
-            return pd.DataFrame()
 
+    # Existing methods...
+    def list_number_of_stores(self, endpoint, headers):
+            response = requests.get(endpoint, headers=headers)
+            if response.status_code == 200:
+                return response.json()['number_of_stores']
+            else:
+                print("Failed to retrieve the number of stores")
+                return 0
+    def read_rds_table(self, db_connector, table_name):
+        """
+        Extracts a table from the RDS database into a pandas DataFrame.
+
+        :param db_connector: An instance of DatabaseConnector
+        :param table_name: The name of the table to extract
+        :return: A pandas DataFrame containing the table's data
+        """
+        # Use the db_connector to get an SQLAlchemy engine
+        engine = db_connector.init_db_engine()
+        if engine is not None:
+            # Use pandas to read the SQL table directly into a DataFrame
+            try:
+                df = pd.read_sql_table(table_name, con=engine)
+                return df
+            except Exception as e:
+                print(f"Error reading table {table_name}: {e}")
+                return pd.DataFrame()  # Return an empty DataFrame in case of error
+        else:
+            print("Failed to connect to the database.")
+            return pd.DataFrame() 
+#%%

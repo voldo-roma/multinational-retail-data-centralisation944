@@ -17,6 +17,7 @@ In this project I'm using cloud Jira to capture requirements and to-dos transfer
 * Each milestone is turned into Epics while individual tasks are turned into blue Tasks or sub-tasks depending on the size of the ticket. 
 ![alt text](https://github.com/voldo-roma/multinational-retail-data-centralisation944/blob/MRDC944/aicore_jira_view_MRD.png?raw=true)
 
+=======
 # Solution
 
 ***Data sources***
@@ -31,6 +32,4 @@ In this project I'm using cloud Jira to capture requirements and to-dos transfer
   - DatabaseConnector class within will be used to connect with and upload data to the database.
 * data_cleaning.py
   - contains the class DataCleaning with methods to clean data from each of the data sources.
-* main.py
-
-
+* main.py - Orchestrates the workflow by using classes and methods from the other scripts. 
