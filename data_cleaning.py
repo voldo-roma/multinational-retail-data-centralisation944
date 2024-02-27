@@ -15,4 +15,8 @@ class DataCleaning:
         except Exception as e:
             print("Error cleaning data:", str(e))
             return None    
-    
+    # method for cleaning data extracted 
+    def called_clean_store_data(self, df):
+        # Implement cleaning operations, e.g., handle missing values, correct data types
+        cleaned_df = df.dropna()  # Example operation
+        return cleaned_df
