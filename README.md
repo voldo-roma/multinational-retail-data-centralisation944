@@ -17,3 +17,13 @@ In this project I'm using cloud Jira to capture requirements and to-dos transfer
 * Each milestone is turned into Epics while individual tasks are turned into blue Tasks or sub-tasks depending on the size of the ticket. 
 ![alt text](https://github.com/voldo-roma/multinational-retail-data-centralisation944/blob/MRDC944/aicore_jira_view_MRD.png?raw=true)
 
+## How to navigate this repo:
+This repository comprises scripts that all work together to perform data tasks. Namely, extract, clean, and upload - all within the same data pipeline:
+
+* data_extraction.py: Defines DataExtractor for retrieving data from various sources, including APIs and RDS databases. It fetches raw data that might require cleaning or transformation before use.
+
+* database_utils.py: Contains DatabaseConnector, which manages database connections, reads credentials, and interacts with the database for operations like listing tables and uploading data. It's pivotal for both initial data extraction and final data upload after cleaning.
+
+* data_cleaning.py: Hosts DataCleaning, responsible for cleaning or transforming data fetched by DataExtractor. It ensures data quality.
+
+* main.py: Orchestrates the workflow by using classes and methods from the other scripts. 
