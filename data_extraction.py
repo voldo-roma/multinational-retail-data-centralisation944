@@ -1,16 +1,17 @@
 # packages first to be imported
 import pandas as pd
-import requests
-from database_utils import DatabaseConnector
-from io import StringIO
-import boto3
+import requests #for HTTP requests to API
+from database_utils import DatabaseConnector #for database ops
+from io import StringIO #in-memory file ops
+import boto3 #for interaction with AWS services
 
 # create main classes
 class DataExtractor:
     def __init__(self, data=None):
         self.data = data
-
-    # Existing methods...
+################################################################
+    #METHODS:    
+    # Makes an API call to retrieve the number of stores, includes error handling.
     def list_number_of_stores(self, endpoint, headers):
             response = requests.get(endpoint, headers=headers)
             if response.status_code == 200:
@@ -18,6 +19,7 @@ class DataExtractor:
             else:
                 print("Failed to retrieve the number of stores")
                 return 0
+    # iterates over store numbers, make API calls for each store, returns a df containing all stores' data.
     def retrieve_stores_data(self, base_endpoint, headers):
         number_of_stores = self.list_number_of_stores(base_endpoint + "/number_stores", headers)
         stores_data = []
@@ -26,10 +28,10 @@ class DataExtractor:
             if store_response.status_code == 200:
                 stores_data.append(store_response.json())
         return pd.DataFrame(stores_data)
+    # Uses DatabaseConnector to create a connection to an RDS database and extract a specified table into a df. Includes error handling for connection and reading issues.
     def read_rds_table(self, db_connector, table_name):
         """
         Extracts a table from the RDS database into a pandas DataFrame.
-
         :param db_connector: An instance of DatabaseConnector
         :param table_name: The name of the table to extract
         :return: A pandas DataFrame containing the table's data
@@ -47,7 +49,8 @@ class DataExtractor:
         else:
             print("Failed to connect to the database.")
             return pd.DataFrame() 
-    # Extract data from S3 bucket and return it as a pandas DataFrame
+    # Extracts extracts the S3 bucket name and key, uses boto3 to retrieve the object, and reads it into a df.
+    #%%
     def extract_from_s3(self, s3_uri):
         # Parse the S3 URI
         bucket_name = s3_uri.split('/')[2]
@@ -64,6 +67,19 @@ class DataExtractor:
         df = pd.read_csv(StringIO(content))
         
         return df
+    #%%
+    # Instantiate the DataExtractor class
+extractor = DataExtractor()
+
+# Define the S3 URI of the CSV file you want to extract
+s3_uri = "s3://data-handling-public/products.csv"
+# Call the method and get the DataFrame
+products_df = extractor.extract_from_s3(s3_uri)
+
+# Now 'products_df' is a pandas DataFrame containing the data from the 'products.csv' file
+print(products_df.head())  # Display the first few rows of the DataFrame
+
+    #%%
 # tests
 if __name__ == "__main__":
     headers = {"x-api-key": "yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX"}
@@ -76,3 +92,4 @@ if __name__ == "__main__":
     if number_of_stores > 0:
         stores_data_df = extractor.retrieve_stores_data(base_endpoint, headers)
         print(stores_data_df.head())
+# %%
