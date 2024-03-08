@@ -50,7 +50,6 @@ class DataExtractor:
             print("Failed to connect to the database.")
             return pd.DataFrame() 
     # Extracts extracts the S3 bucket name and key, uses boto3 to retrieve the object, and reads it into a df.
-    #%%
     def extract_from_s3(self, s3_uri):
         # Parse the S3 URI
         bucket_name = s3_uri.split('/')[2]
@@ -67,19 +66,16 @@ class DataExtractor:
         df = pd.read_csv(StringIO(content))
         
         return df
-    #%%
-    # Instantiate the DataExtractor class
+# Instantiate the DataExtractor class
 extractor = DataExtractor()
-
 # Define the S3 URI of the CSV file you want to extract
 s3_uri = "s3://data-handling-public/products.csv"
-# Call the method and get the DataFrame
+    # Call the method and get the DataFrame
 products_df = extractor.extract_from_s3(s3_uri)
 
-# Now 'products_df' is a pandas DataFrame containing the data from the 'products.csv' file
+    # Now 'products_df' is a pandas DataFrame containing the data from the 'products.csv' file
 print(products_df.head())  # Display the first few rows of the DataFrame
-
-    #%%
+#%%
 # tests
 if __name__ == "__main__":
     headers = {"x-api-key": "yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX"}
@@ -92,4 +88,3 @@ if __name__ == "__main__":
     if number_of_stores > 0:
         stores_data_df = extractor.retrieve_stores_data(base_endpoint, headers)
         print(stores_data_df.head())
-# %%
